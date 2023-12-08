@@ -160,12 +160,38 @@ class _HomePageState extends State<HomePage> {
                   style: GoogleFonts.nunitoSans(color: Colors.white),
                 ),
                 onTap: () {
-                  // Handle tile tap
-                  Navigator.pop(context); // Close the bottom sheet
+                  _showAlertDialog();
                 },
               );
             },
           ),
+        );
+      },
+    );
+  }
+
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose an option'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Handle Updation button press
+                Navigator.pop(context);
+              },
+              child: Text('Updation'),
+            ),
+            TextButton(
+              onPressed: () {
+                // Handle Enrollment button press
+                Navigator.pop(context);
+              },
+              child: Text('Enrollment'),
+            ),
+          ],
         );
       },
     );
