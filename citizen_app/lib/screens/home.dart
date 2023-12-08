@@ -41,16 +41,11 @@ class _HomePageState extends State<HomePage> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: NeumorphicAppBar(
-            leading: NeumorphicButton(
+            leading: IconButton(
               onPressed: () {
                 _scaffoldKey.currentState?.openDrawer();
               },
-              // style: NeumorphicStyle(
-              //   shape: NeumorphicShape.convex,
-              //   boxShape: NeumorphicBoxShape.circle(),
-              //   depth: 8,
-              // ),
-              child: Icon(Icons.menu, color: Colors.white),
+              icon: Icon(Icons.menu, color: Colors.white),
             ),
             title: Text(
               'AadharChain',
