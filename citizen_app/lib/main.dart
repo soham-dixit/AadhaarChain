@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       getPages: appRoutes(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: GoogleFonts.nunitoSans().fontFamily
+      ),
     );
   }
 }
