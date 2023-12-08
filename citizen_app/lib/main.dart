@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/home',
       getPages: appRoutes(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: GoogleFonts.nunitoSans().fontFamily
+      ),
     );
   }
 }
