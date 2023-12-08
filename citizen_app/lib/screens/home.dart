@@ -1,46 +1,117 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-Future<String> loadMapStyle() async {
-  return await rootBundle.loadString('assets/dark_map_style.json');
-}
-
 class _HomePageState extends State<HomePage> {
   late String _darkMapStyle;
+
   GoogleMapController? _controller;
   Set<Marker> _markers = {};
   Set<Circle> _circles = {};
+
+  // Sample data for the list
+  List<String> itemList = [
+    'Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          GoogleMap(
-            mapType: MapType.normal,
-            myLocationEnabled: false,
-            zoomControlsEnabled: false,
-            mapToolbarEnabled: false,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(19.0760, 72.8777),
-              zoom: 16.0,
+      body: NeumorphicApp(
+        darkTheme: NeumorphicThemeData(
+          baseColor: Color(0xFF3E3E3E),
+          lightSource: LightSource.topLeft,
+          depth: 6,
+          textTheme: GoogleFonts.nunitoSansTextTheme(),
+        ),
+        home: Stack(
+          children: [
+            GoogleMap(
+              mapType: MapType.normal,
+              myLocationEnabled: false,
+              zoomControlsEnabled: false,
+              mapToolbarEnabled: false,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(19.0760, 72.8777),
+                zoom: 16.0,
+              ),
+              onMapCreated: (GoogleMapController controller) {
+                _controller = controller;
+              },
+              markers: _markers,
+              circles: _circles,
             ),
-            onMapCreated: (GoogleMapController controller) {
-              _controller = controller;
-            },
-            markers: _markers,
-            circles: _circles,
-          ),
-        ],
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: NeumorphicButton(
+                onPressed: () {
+                  _showBottomSheet();
+                },
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.concave,
+                  boxShape: NeumorphicBoxShape.roundRect(
+                    BorderRadius.circular(30.0),
+                  ),
+                  depth: 8, // Adjust the depth as needed
+                ),
+                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                child: Center(
+                  child: Text('Show Service Masters',
+                      style: GoogleFonts.nunitoSans(color: Colors.white)),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  void _showBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      elevation: 0.0, // Set elevation to 0.0 to avoid shadow
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+      ),
+      builder: (BuildContext context) {
+        return Container(
+          height: 300.0,
+          decoration: BoxDecoration(
+            color: Color(0xFF3E3E3E),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+          ),
+          child: ListView.builder(
+            itemCount: itemList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text(
+                  itemList[index],
+                  style: GoogleFonts.nunitoSans(color: Colors.white),
+                ),
+                onTap: () {
+                  // Handle tile tap
+                  Navigator.pop(context); // Close the bottom sheet
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
