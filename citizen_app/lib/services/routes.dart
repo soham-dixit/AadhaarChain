@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:mobile_app/screens/login.dart';
 
 appRoutes() => [
       GetPage(
         name: '/login',
-        page: () => Login(),
+        page: () => const LoginPage(),
       ),
     ];
 
