@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,10 +14,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late String _darkMapStyle;
+  Location currentLocation = Location();
+  bool shouldUpdateCamera = true;
 
   GoogleMapController? _controller;
   Set<Marker> _markers = {};
   Set<Circle> _circles = {};
+  late BitmapDescriptor mapMarker, femaleMarker, maleMarker, transgenderMarker;
 
   // Sample data for the list
   List<String> itemList = [
@@ -28,6 +32,65 @@ class _HomePageState extends State<HomePage> {
   ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void getLocation() async {
+    var location = await currentLocation.getLocation();
+    currentLocation.onLocationChanged.listen((LocationData loc) {
+      if (shouldUpdateCamera) {
+        _controller?.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(loc.latitude!, loc.longitude!),
+            zoom: 13,
+          ),
+        ));
+        shouldUpdateCamera = false; // Set the flag to false after updating once
+      }
+      print('location updated');
+      print(loc.latitude);
+      print(loc.longitude);
+
+      setState(() {
+        _markers.addAll([
+          Marker(
+            markerId: MarkerId('User Location'),
+            position: LatLng(loc.latitude!, loc.longitude!),
+            // Use the default marker
+            icon: BitmapDescriptor.defaultMarker,
+          ),
+        ]);
+        _circles.add(
+          Circle(
+            circleId: CircleId("user circle"),
+            center: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
+            radius: 3000,
+            fillColor: Colors.blue.shade100.withOpacity(0.5),
+            strokeColor: Colors.blue.withAlpha(70),
+            strokeWidth: 2,
+          ),
+        );
+      });
+    });
+  }
+
+  void setCustomMarker() async {
+    mapMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/user-marker.png');
+    femaleMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/Female-Operator.png');
+    maleMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/Male-Operator.png');
+    transgenderMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration(), 'assets/Others-Operator.png');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      getLocation();
+      setCustomMarker();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
