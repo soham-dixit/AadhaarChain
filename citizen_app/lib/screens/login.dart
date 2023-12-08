@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 NeumorphicButton(
                   onPressed: () {
-                    Get.to('/');
+                    Get.toNamed('/home');
                   },
                   child: Text(
                     '            Login            ',
