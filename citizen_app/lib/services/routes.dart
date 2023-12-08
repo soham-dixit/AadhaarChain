@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:mobile_app/screens/enrollment_form.dart';
 import 'package:mobile_app/screens/home.dart';
 import 'package:mobile_app/screens/login.dart';
 
@@ -10,6 +11,10 @@ appRoutes() => [
       GetPage(
         name: '/home',
         page: () => HomePage(),
+      ),
+      GetPage(
+        name: '/enrollment_form',
+        page: () => EnrollmentForm(),
       )
     ];
 
