@@ -26,17 +26,71 @@ class _HomePageState extends State<HomePage> {
     'Item 5',
   ];
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NeumorphicApp(
-        darkTheme: NeumorphicThemeData(
-          baseColor: Color(0xFF3E3E3E),
-          lightSource: LightSource.topLeft,
-          depth: 6,
-          textTheme: GoogleFonts.nunitoSansTextTheme(),
+    return NeumorphicApp(
+      darkTheme: NeumorphicThemeData(
+        baseColor: Color(0xFF3E3E3E),
+        lightSource: LightSource.topLeft,
+        depth: 6,
+      ),
+      home: Scaffold(
+        key: _scaffoldKey,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(60.0),
+          child: NeumorphicAppBar(
+            leading: NeumorphicButton(
+              onPressed: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
+              // style: NeumorphicStyle(
+              //   shape: NeumorphicShape.convex,
+              //   boxShape: NeumorphicBoxShape.circle(),
+              //   depth: 8,
+              // ),
+              child: Icon(Icons.menu, color: Colors.white),
+            ),
+            title: Text(
+              'AadharChain',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
         ),
-        home: Stack(
+        drawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xFF3E3E3E),
+                ),
+                child: Text(
+                  'Drawer Header',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('Item 1'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: Text('Item 2'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        ),
+        body: Stack(
           children: [
             GoogleMap(
               mapType: MapType.normal,
@@ -70,8 +124,10 @@ class _HomePageState extends State<HomePage> {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
                 child: Center(
-                  child: Text('Show Service Masters',
-                      style: GoogleFonts.nunitoSans(color: Colors.white)),
+                  child: Text(
+                    'Show Service Masters',
+                    style: GoogleFonts.nunitoSans(color: Colors.white),
+                  ),
                 ),
               ),
             ),
