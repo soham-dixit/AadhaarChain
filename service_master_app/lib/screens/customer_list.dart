@@ -16,9 +16,21 @@ class Apointments extends StatefulWidget {
 }
 
 class _ApointmentsState extends State<Apointments> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: AppBar(
+          backgroundColor: Color(0xFF292929),
+          title: const Text(
+            'Current Appointments',
+          ),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: NeumorphicApp(
         debugShowCheckedModeBanner: false,
