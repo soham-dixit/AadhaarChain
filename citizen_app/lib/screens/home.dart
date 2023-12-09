@@ -353,9 +353,10 @@ class _HomePageState extends State<HomePage> {
                         "https://anon-aadhar.web.app/",
                     appBar: new AppBar(
                       title: new Text("Powered by anon aadhaar"),
-                    ),
+                      backgroundColor:
+                      Color(0xFF3E3E3E),
                   ),
-                );
+                ));
               },
               child: const Text('Updation'),
             ),

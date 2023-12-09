@@ -9,6 +9,7 @@ Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    
     statusBarColor: Colors.transparent,
   ));
   runApp(const MyApp());
