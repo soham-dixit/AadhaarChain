@@ -23,7 +23,6 @@ class _EnrollmentFormState extends State<EnrollmentForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: NeumorphicApp(
-        // ... NeumorphicApp configurations
         home: NeumorphicBackground(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0),

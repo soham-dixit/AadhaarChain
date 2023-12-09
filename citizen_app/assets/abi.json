@@ -71,7 +71,13 @@
       }
     ],
     "name": "registerOperator",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -99,25 +105,6 @@
       }
     ],
     "name": "registerUser",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_receiver",
-        "type": "address"
-      }
-    ],
-    "name": "sendNotification",
     "outputs": [
       {
         "internalType": "bool",
@@ -190,19 +177,6 @@
         "internalType": "uint256",
         "name": "operatorId",
         "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "EPNS_COMM_ADDRESS",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -307,6 +281,51 @@
           }
         ],
         "internalType": "struct Aadhar1.Operator[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getAllUsers",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "password",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "role",
+            "type": "string"
+          },
+          {
+            "internalType": "address",
+            "name": "addr",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct Aadhar1.User[]",
         "name": "",
         "type": "tuple[]"
       }
