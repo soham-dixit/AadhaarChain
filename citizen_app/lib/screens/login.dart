@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: NeumorphicApp(
+        debugShowCheckedModeBanner: false,
         darkTheme: NeumorphicThemeData(
           baseColor: Color(0xFF3E3E3E),
           lightSource: LightSource.top,

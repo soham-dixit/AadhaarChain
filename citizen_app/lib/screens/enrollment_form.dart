@@ -14,13 +14,13 @@ class EnrollmentForm extends StatefulWidget {
 }
 
 class _EnrollmentFormState extends State<EnrollmentForm> {
-
   int selectedOption = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NeumorphicApp(
+        debugShowCheckedModeBanner: false,
         darkTheme: NeumorphicThemeData(
           baseColor: Color(0xFF3E3E3E),
           lightSource: LightSource.top,
@@ -36,11 +36,19 @@ class _EnrollmentFormState extends State<EnrollmentForm> {
                 SizedBox(),
                 Column(
                   children: [
-                    NeumorphicTextField(hintText: 'Full Name', iconData: Icons.account_circle_sharp),
-                    SizedBox(height: 20,),
-                    NeumorphicTextField(hintText: 'Phone', iconData: Icons.phone),
-                    SizedBox(height: 20,),
-                    NeumorphicTextField(hintText: 'Address', iconData: Icons.home),
+                    NeumorphicTextField(
+                        hintText: 'Full Name',
+                        iconData: Icons.account_circle_sharp),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NeumorphicTextField(
+                        hintText: 'Phone', iconData: Icons.phone),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    NeumorphicTextField(
+                        hintText: 'Address', iconData: Icons.home),
                   ],
                 ),
                 Column(
@@ -88,7 +96,8 @@ class _EnrollmentFormState extends State<EnrollmentForm> {
                     NeumorphicButton(
                       onPressed: () {
                         Get.offNamed('/home');
-                        Get.snackbar("Success", "Booking Successful!", colorText: Colors.white);
+                        Get.snackbar("Success", "Booking Successful!",
+                            colorText: Colors.white);
                       },
                       child: Text(
                         '         Book         ',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _markers.addAll([
           Marker(
-            markerId: MarkerId('User Location'),
+            markerId: const MarkerId('User Location'),
             position: LatLng(loc.latitude!, loc.longitude!),
             // Use the default marker
             icon: BitmapDescriptor.defaultMarker,
@@ -60,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         ]);
         _circles.add(
           Circle(
-            circleId: CircleId("user circle"),
+            circleId: const CircleId("user circle"),
             center: LatLng(loc.latitude ?? 0.0, loc.longitude ?? 0.0),
             radius: 3000,
             fillColor: Colors.blue.shade100.withOpacity(0.5),
@@ -74,13 +75,13 @@ class _HomePageState extends State<HomePage> {
 
   void setCustomMarker() async {
     mapMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), 'assets/user-marker.png');
+        const ImageConfiguration(), 'assets/user-marker.png');
     femaleMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), 'assets/Female-Operator.png');
+        const ImageConfiguration(), 'assets/Female-Operator.png');
     maleMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), 'assets/Male-Operator.png');
+        const ImageConfiguration(), 'assets/Male-Operator.png');
     transgenderMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(), 'assets/Others-Operator.png');
+        const ImageConfiguration(), 'assets/Others-Operator.png');
   }
 
   @override
@@ -95,7 +96,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicApp(
-      darkTheme: NeumorphicThemeData(
+      debugShowCheckedModeBanner: false,
+      darkTheme: const NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
         lightSource: LightSource.topLeft,
         depth: 6,
@@ -103,19 +105,17 @@ class _HomePageState extends State<HomePage> {
       home: Scaffold(
         key: _scaffoldKey,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
+          // Adjust the height as needed
+          preferredSize: const Size.fromHeight(60.0),
           child: NeumorphicAppBar(
-            leading: IconButton(
-              onPressed: () {
-                _scaffoldKey.currentState?.openDrawer();
-              },
-              icon: Icon(Icons.menu, color: Colors.white),
-            ),
-            title: Text(
-              'AadharChain',
+            title: const Text(
+              'AadhaarChain',
               style: TextStyle(
-                color: Colors.white,
+                fontFamily: 'Poppins',
               ),
+            ),
+            iconTheme: const IconThemeData(
+              color: Colors.white, // Set the desired color for the menu icon
             ),
           ),
         ),
@@ -127,21 +127,30 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                   color: Color(0xFF3E3E3E),
                 ),
-                child: Text(
-                  'Drawer Header',
-                  style: TextStyle(
-                    color: Colors.white,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxHeight: 50.0, // Adjust the maxHeight as needed
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            'assets/aadhaar.svg',
+                            height: 80,
+                            width: 80,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
               ListTile(
-                title: Text('Item 1'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                title: Text('Item 2'),
+                title: const Text('Logout'),
                 onTap: () {
                   Navigator.pop(context);
                 },
@@ -156,7 +165,7 @@ class _HomePageState extends State<HomePage> {
               myLocationEnabled: false,
               zoomControlsEnabled: false,
               mapToolbarEnabled: false,
-              initialCameraPosition: CameraPosition(
+              initialCameraPosition: const CameraPosition(
                 target: LatLng(19.0760, 72.8777),
                 zoom: 16.0,
               ),
@@ -181,7 +190,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                   depth: 8, // Adjust the depth as needed
                 ),
-                padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 16.0, horizontal: 32.0),
                 child: Center(
                   child: Text(
                     'Show Service Masters',
@@ -200,13 +210,13 @@ class _HomePageState extends State<HomePage> {
     showModalBottomSheet(
       context: context,
       elevation: 0.0, // Set elevation to 0.0 to avoid shadow
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       builder: (BuildContext context) {
         return Container(
           height: 300.0,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFF3E3E3E),
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
           ),
@@ -234,21 +244,21 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Choose an option'),
+          title: const Text('Choose an option'),
           actions: [
             TextButton(
               onPressed: () {
                 // Handle Updation button press
                 Navigator.pop(context);
               },
-              child: Text('Updation'),
+              child: const Text('Updation'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 Get.toNamed("/enrollment_form");
               },
-              child: Text('Enrollment'),
+              child: const Text('Enrollment'),
             ),
           ],
         );
