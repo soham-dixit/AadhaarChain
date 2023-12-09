@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:location/location.dart';
-import 'package:service_master_app/widgets/neumorphic_textfield.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+import '../widgets/neumorphic_textfield.dart';
+
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegistrationPageState extends State<RegistrationPage> {
   late LocationData _currentLocation;
 
   Future<void> getLatiLongi() async {
@@ -52,7 +54,7 @@ class _RegisterPageState extends State<RegisterPage> {
             padding: const EdgeInsets.symmetric(horizontal: 12.0),
             child: Column(
               mainAxisAlignment:
-                  MainAxisAlignment.start, // Align to the start of the column
+              MainAxisAlignment.start, // Align to the start of the column
               children: [
                 // SVG image above email text field with reduced margin
                 Container(
@@ -104,7 +106,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 NeumorphicButton(
                   onPressed: () {
-                    Get.offNamed('/home');
+                    Get.offNamed('/metamaskweb');
                   },
                   style: NeumorphicStyle(
                     boxShape: NeumorphicBoxShape.roundRect(
@@ -115,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       horizontal: 34,
                       vertical: 12), // Adjust the padding as needed
                   child: const Text(
-                    'Register',
+                    'Regsiter',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
