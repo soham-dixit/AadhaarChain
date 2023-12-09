@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 NeumorphicButton(
                   onPressed: () {
-                    Get.offNamed('/home');
+                    Get.offNamed('/customer_list');
                   },
                   style: NeumorphicStyle(
                     boxShape: NeumorphicBoxShape.roundRect(
