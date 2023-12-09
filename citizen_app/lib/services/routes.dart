@@ -3,6 +3,7 @@ import 'package:mobile_app/screens/enrollment_form.dart';
 import 'package:mobile_app/screens/home.dart';
 import 'package:mobile_app/screens/login.dart';
 import 'package:mobile_app/screens/register.dart';
+import 'package:mobile_app/screens/updation.dart';
 import 'package:mobile_app/screens/using_smart_contract.dart';
 
 appRoutes() => [
@@ -25,6 +26,10 @@ appRoutes() => [
       GetPage(
         name: '/sc',
         page: () => UsingSmartContract(),
+      ),
+      GetPage(
+        name: '/updation',
+        page: () => Updation(),
       )
     ];
 

@@ -248,8 +248,8 @@ class _HomePageState extends State<HomePage> {
           actions: [
             TextButton(
               onPressed: () {
-                // Handle Updation button press
                 Navigator.pop(context);
+                Get.toNamed("/updation");
               },
               child: const Text('Updation'),
             ),
