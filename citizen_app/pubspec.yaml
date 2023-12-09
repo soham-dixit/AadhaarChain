@@ -44,6 +44,7 @@ dependencies:
   location: ^5.0.3
   web3dart: ^2.7.1
   flutter_svg: ^2.0.9
+  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_test:
