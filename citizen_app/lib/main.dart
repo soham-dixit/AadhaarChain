@@ -22,12 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'AadhaarChain',
-      initialRoute: '/sc',
+      initialRoute: '/login',
       getPages: appRoutes(),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        fontFamily: GoogleFonts.nunitoSans().fontFamily
-      ),
+      theme: ThemeData(fontFamily: GoogleFonts.nunitoSans().fontFamily),
     );
   }
 }
