@@ -88,6 +88,7 @@ class _EnrollmentFormState extends State<EnrollmentForm> {
                     NeumorphicButton(
                       onPressed: () {
                         Get.offNamed('/home');
+                        Get.snackbar("Success", "Booking Successful!", colorText: Colors.white);
                       },
                       child: Text(
                         '         Book         ',
@@ -99,17 +100,6 @@ class _EnrollmentFormState extends State<EnrollmentForm> {
               ],
             ),
           ),
-          /*child: Center(
-            child: NeumorphicButton(
-              onPressed: () {},
-              child: Text(
-                  'Click Me',
-                  style: TextStyle(
-                    color: Colors.white
-                  ),
-              ),
-            ),
-          ),*/
         ),
       ),
     );
