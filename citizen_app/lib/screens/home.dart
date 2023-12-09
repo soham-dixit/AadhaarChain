@@ -256,8 +256,10 @@ class _HomePageState extends State<HomePage> {
                   WebviewScaffold(
                     url:
                         "https://0c50-2409-40f2-28-4-49e8-dda4-4fd8-7d21.ngrok-free.app/",
-                    appBar: new AppBar(
-                      title: new Text("Widget webview"),
+                    appBar: AppBar(
+                      title: Text("Aadhaar Verification"),
+                      backgroundColor:
+                          Color(0xFF3E3E3E), // Set the background color here
                     ),
                   ),
                 );
