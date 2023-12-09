@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -249,7 +250,17 @@ class _HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                Get.toNamed("/updation");
+                // Get.toNamed("/updation");
+                // Get.toNamed('/verify');
+                Get.to(
+                  WebviewScaffold(
+                    url:
+                        "https://0c50-2409-40f2-28-4-49e8-dda4-4fd8-7d21.ngrok-free.app/",
+                    appBar: new AppBar(
+                      title: new Text("Widget webview"),
+                    ),
+                  ),
+                );
               },
               child: const Text('Updation'),
             ),

@@ -4,6 +4,7 @@ import 'package:mobile_app/screens/home.dart';
 import 'package:mobile_app/screens/login.dart';
 import 'package:mobile_app/screens/registration.dart';
 import 'package:mobile_app/screens/using_smart_contract.dart';
+import 'package:mobile_app/screens/verify.dart';
 
 import '../screens/updation.dart';
 
@@ -31,6 +32,10 @@ appRoutes() => [
       GetPage(
           name: '/registration',
           page: () => RegistrationPage()
+      ),
+      GetPage(
+          name: '/verify',
+          page: () => Verify()
       )
     ];
 
