@@ -13,6 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,18 +58,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(height: 80), // Reduced gap
-                const Column(
+                Column(
                   children: [
                     NeumorphicTextField(
+                      controller: emailController,
                       hintText: 'Email',
                       iconData: Icons.email,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20, // Reduced gap
                     ),
                     NeumorphicTextField(
                       hintText: 'Password',
                       iconData: Icons.password,
+                      controller: passwordController
                     ),
                   ],
                 ),

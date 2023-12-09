@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 class NeumorphicTextField extends StatefulWidget {
   final String hintText;
   final IconData iconData;
+  final TextEditingController controller;
 
-  const NeumorphicTextField({super.key, required this.hintText, required this.iconData});
+  const NeumorphicTextField({super.key, required this.hintText, required this.iconData,  required this.controller});
 
   @override
   State<NeumorphicTextField> createState() => _NeumorphicTextFieldState();
