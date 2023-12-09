@@ -4,9 +4,6 @@ import 'package:mobile_app/screens/home.dart';
 import 'package:mobile_app/screens/login.dart';
 import 'package:mobile_app/screens/using_smart_contract.dart';
 
-import '../screens/metamask_webview.dart';
-import '../screens/registration.dart';
-
 appRoutes() => [
       GetPage(
         name: '/login',
@@ -25,14 +22,9 @@ appRoutes() => [
         page: () => UsingSmartContract(),
       ),
       GetPage(
-        name: '/register',
-        page: () => RegistrationPage(),
-      ),
-  //MetamaskWebView
-      GetPage(
-        name: '/metamaskweb',
-        page: () => MetamaskWebView(),
-      ),
+        name: '/updation',
+        page: () => Updation(),
+      )
     ];
 
 class MyMiddelware extends GetMiddleware {
