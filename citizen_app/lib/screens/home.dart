@@ -1,11 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:http/http.dart';
 import 'package:location/location.dart';
+import 'package:web3dart/web3dart.dart';
+
+class Operator {
+  final int id;
+  final String name;
+  final String email;
+  final String password;
+  final String latitude;
+  final String longitude;
+  final String role;
+  final String addr;
+
+  Operator({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.password,
+    required this.latitude,
+    required this.longitude,
+    required this.role,
+    required this.addr,
+  });
+
+  factory Operator.fromJson(Map<String, dynamic> json) {
+    return Operator(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      email: json['email'] as String,
+      password: json['password'] as String,
+      latitude: json['latitude'] as String,
+      longitude: json['longitude'] as String,
+      role: json['role'] as String,
+      addr: json['addr'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'password': password,
+      'latitude': latitude,
+      'longitude': longitude,
+      'role': role,
+      'addr': addr,
+    };
+  }
+}
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +67,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late String _darkMapStyle;
   Location currentLocation = Location();
   bool shouldUpdateCamera = true;
 
@@ -26,12 +77,65 @@ class _HomePageState extends State<HomePage> {
 
   // Sample data for the list
   List<String> itemList = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
+    'Nothing to see at the moment!',
   ];
+
+  late Web3Client client;
+  late EthPrivateKey credentials;
+
+  final String contractAddress = "0x7Bdf1Af327b9BB9FbF89C8fd96fBa51EA556ab28";
+  final String rpcUrl = "https://sepolia-rpc.scroll.io";
+
+  Future<void> setupWeb3() async {
+    client = Web3Client(rpcUrl, Client());
+    credentials = EthPrivateKey.fromHex("35a011347e6bed879f9cb3555455be92dbab7bb8074a375097a35e11e12eeeea");
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setupWeb3();
+    setState(() {
+      getLocation();
+      setCustomMarker();
+    });
+    getAllOperators();
+  }
+
+  Future<List<Operator>> getAllOperators() async {
+    List<Operator> operators = [];
+    try {
+      String abi = await rootBundle.loadString('assets/abi.json');
+      DeployedContract contract = DeployedContract(
+        ContractAbi.fromJson(abi, "Aadhar1"),
+        EthereumAddress.fromHex(contractAddress),
+      );
+
+      List<dynamic> result = await client.call(
+        contract: contract,
+        function: contract.function('getAllOperators'),
+        params: [],
+      );
+
+      // Process the result obtained from the contract call
+      if(result!=null) {
+        itemList.removeAt(0);
+      }
+      for (var item in result) {
+
+        for(var val in item) {
+          itemList.add(val[1]);
+        }
+      }
+
+      //print("-=-=-=-=-=-=-=\n\n\n${result.size}\n\n\n-=-=-=-=-=-=-=");
+    } catch (e) {
+      print('Error fetching operators: $e');
+    }
+    return operators;
+  }
+
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -83,15 +187,6 @@ class _HomePageState extends State<HomePage> {
         const ImageConfiguration(), 'assets/Male-Operator.png');
     transgenderMarker = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(), 'assets/Others-Operator.png');
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      getLocation();
-      setCustomMarker();
-    });
   }
 
   @override
@@ -255,14 +350,13 @@ class _HomePageState extends State<HomePage> {
                 Get.to(
                   WebviewScaffold(
                     url:
-                        "https://0c50-2409-40f2-28-4-49e8-dda4-4fd8-7d21.ngrok-free.app/",
-                    appBar: AppBar(
-                      title: Text("Aadhaar Verification"),
+                        "https://anon-aadhar.web.app/",
+                    appBar: new AppBar(
+                      title: new Text("Powered by anon aadhaar"),
                       backgroundColor:
-                          Color(0xFF3E3E3E), // Set the background color here
-                    ),
+                      Color(0xFF3E3E3E),
                   ),
-                );
+                ));
               },
               child: const Text('Updation'),
             ),
