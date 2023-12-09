@@ -67,7 +67,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   ),
                 ),
                 NeumorphicText(
-                  'Service Master',
+                  'Citizen App',
                   style: const NeumorphicStyle(
                     depth: 2, // Customize the depth as needed
                     color: Colors.white,
@@ -106,7 +106,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 NeumorphicButton(
                   onPressed: () {
-                    Get.offNamed('/metamaskweb');
+
                   },
                   style: NeumorphicStyle(
                     boxShape: NeumorphicBoxShape.roundRect(
@@ -141,13 +141,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed('/login');
+                        Get.offNamed('/login');
                       },
                       child: NeumorphicText(
                         ' Login now',
                         style: const NeumorphicStyle(
                           depth: 2, // Customize the depth as needed
-                          color: Colors.white,
+                          color: Color(0xFFFFD700),
                         ),
                         textStyle: NeumorphicTextStyle(
                           fontSize: 16, // Customize the font size as needed
