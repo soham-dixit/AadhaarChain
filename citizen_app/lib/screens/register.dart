@@ -3,16 +3,38 @@ import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:location/location.dart';
 import 'package:mobile_app/widgets/neumorphic_textfield.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
+  late LocationData _currentLocation;
+
+  Future<void> getLatiLongi() async {
+    Location location = Location();
+
+    try {
+      _currentLocation = await location.getLocation();
+      print("Latitude: ${_currentLocation.latitude}");
+      print("Longitude: ${_currentLocation.longitude}");
+    } catch (e) {
+      print("Error getting location: $e");
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getLatiLongi();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +80,13 @@ class _LoginPageState extends State<LoginPage> {
                 const Column(
                   children: [
                     NeumorphicTextField(
+                      hintText: 'Name',
+                      iconData: Icons.person,
+                    ),
+                    SizedBox(
+                      height: 20, // Reduced gap
+                    ),
+                    NeumorphicTextField(
                       hintText: 'Email',
                       iconData: Icons.email,
                     ),
@@ -86,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
                       horizontal: 34,
                       vertical: 12), // Adjust the padding as needed
                   child: const Text(
-                    'Login',
+                    'Regsiter',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -97,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     NeumorphicText(
-                      'New user?',
+                      'Already registered?',
                       style: const NeumorphicStyle(
                         depth: 2, // Customize the depth as needed
                         color: Colors.white,
@@ -110,10 +139,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed('/register');
+                        Get.toNamed('/login');
                       },
                       child: NeumorphicText(
-                        ' Register now',
+                        ' Login now',
                         style: const NeumorphicStyle(
                           depth: 2, // Customize the depth as needed
                           color: Colors.white,
