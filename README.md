@@ -13,6 +13,8 @@ This project aims to address the challenges in the Aadhaar updation and enrollme
 
 2. **Scroll.io Network:**
    - Scroll Chain is the chosen blockchain network for deploying and executing the smart contract. It provides the necessary infrastructure for a secure and decentralized application.
+   - Contract address of our project: 0x7Bdf1Af327b9BB9FbF89C8fd96fBa51EA556ab28
+   - Link to Scroll-etherscan: https://sepolia.scrollscan.com/address/0x7Bdf1Af327b9BB9FbF89C8fd96fBa51EA556ab28 
 
 3. **Anon-Aadhaar SDK:**
    - Anon-Aadhaar is utilized for Aadhaar validation. It verifies the Aadhaar signature locally on the user's machine, ensuring authenticity without transmitting sensitive data to external servers.
