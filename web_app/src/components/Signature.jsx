@@ -1,111 +1,97 @@
+// import { useEffect } from "react";
+// import { AnonAadhaarProvider, useAnonAadhaar, LogInWithAnonAadhaar, AnonAadhaarProof } from "anon-aadhaar-react";
 
-import React, { useState } from 'react';
-import { extractSignature } from '../utils/generateSig';
-import { LogInWithAnonAadhaar } from 'anon-aadhaar-react';
+// const app_id="557052232335049516014482965529112482384963436544"
 
-const Signature = () => {
-    const [isSignatureValid, setIsSignatureValid] = useState(null);
-    const [pdfStatus, setpdfStatus] = useState('');
-    const [signature, setsignature] = useState('');
-    const [signatureValidity, setsignatureValidity] = useState('');
+// // const app_id = process.env.NEXT_PUBLIC_APP_ID;
 
-    const handleFileUpload = (e) => {
-        pdfUpload(e);
-    };
+// function Signature() {
 
-    const pdfUpload = (e) => {
-        if (e.target.files) {
-            try {
-                const fileReader = new FileReader();
-                fileReader.readAsBinaryString(e.target.files[0]);
-                fileReader.onload = (e) => {
-                    if (e.target) {
-                        try {
-                            const { signedData, signature, ByteRange } = extractSignature(
-                                Buffer.from(e.target.result, 'binary')
-                            );
-                            console.log('Signature: ', signature);
-                            if (signature !== '') {
-                                setsignature(window.forge.asn1.fromDer(signature).value);
-                                setsignedPdfData(signedData);
-                                setpdfStatus('Signature looks valid ✅');
-                                setIsSignatureValid(true);
-                                setdisabledCertificateUploadInput(true);
-                            }
-                            else {
-                                setpdfStatus('Signature looks invalid ❌');
-                            }
-                        } catch (error) {
-                            setpdfStatus('An error occurred when verifying signature ❌');
-                        }
-                    }
-                };
-            }
-            catch {
-                setpdfStatus('');
-                setsignatureValidity('');
-            }
-        }
-    };
+//   const [anonAadhaar] = useAnonAadhaar();
 
-    return (
-        // <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
-        //     <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative">
-        //         <h1 className="text-3xl font-bold mb-4 text-center"> 🔐 AadharChain </h1>
-        //         <input
-        //             type="file"
-        //             accept=".pdf"
-        //             onChange={handleFileUpload}
-        //             className="mb-4 p-2 border border-gray-300 w-full rounded-md bg-gray-100"
-        //         />
-        //         {/* <LogInWithAnonAadhaar /> */}
-        //         <div className="glass-effect p-4 bg-opacity-20 backdrop-blur-md backdrop-filter absolute inset-0 rounded-md pointer-events-none">
-        //             {isSignatureValid === null ? (
-        //                 <p className="text-gray-600 text-center">Upload a PDF to check for a signature.</p>
-        //             ) : isSignatureValid ? (
-        //                 <div className="text-green-500 text-center">
-        //                     <p className="font-bold mb-2">🎉 Signature detected!</p>
-        //                     <p className="text-xs">Your document contains a valid signature. 🚀</p>
-        //                 </div>
-        //             ) : (
-        //                 <div className="text-red-500 text-center">
-        //                     <p className="font-bold mb-2">❌ Signature not detected in document</p>
-        //                     <p className="text-xs">Make sure the PDF contains a valid signature.</p>
-        //                 </div>
-        //             )}
-        //         </div>
-        //     </div>
-        // </div>
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-purple-800 via-pink-700 to-red-600">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full relative overflow-hidden backdrop-filter backdrop-blur-md bg-opacity-80 border border-gray-300">
-                <div className="glass-effect absolute inset-0 bg-gradient-to-r from-purple-800 via-pink-700 to-red-600 backdrop-filter backdrop-blur-md bg-opacity-70"></div>
-                <h1 className="text-3xl font-bold mb-4 text-center text-white relative z-10 mt-10">🔐 AadharChain</h1>
-                <input
-                    type="file"
-                    accept=".pdf"
-                    onChange={handleFileUpload}
-                    className="mb-4 p-3 border border-gray-300 w-full rounded-md bg-gray-100 focus:outline-none focus:ring focus:border-blue-300 z-10 transition duration-300 ease-in-out transform hover:scale-105"
-                />
-                <div className="glass-effect p-4 absolute inset-0 rounded-md pointer-events-none z-10">
-                    {isSignatureValid === null ? (
-                        <p className="text-gray-300 text-center mb-10">Upload a PDF to check for a signature.</p>
-                    ) : isSignatureValid ? (
-                        <div className="text-green-300 text-center">
-                            <p className="font-bold mb-2 animate-bounce">🎉 Signature detected!</p>
-                            <p className="text-xs">Your document contains a valid signature. 🚀</p>
-                        </div>
-                    ) : (
-                        <div className="text-red-300 text-center">
-                            <p className="font-bold mb-2 animate-shake">❌ Signature not detected in document</p>
-                            <p className="text-xs">Make sure the PDF contains a valid signature.</p>
-                        </div>
-                    )}
-                </div>
+//   useEffect(() => {
+//     console.log("anonAadhaar", anonAadhaar.status);
+//     if (anonAadhaar.status === "logged-in") {
+//       console.log("anonAadhaar", anonAadhaar);
+//       console.log("anonAadhaar.pcd.proof", anonAadhaar.pcd.proof);
+//     }
+//   }, [anonAadhaar]);
+
+//   return (
+//     <div>
+//       <AnonAadhaarProvider _appId={app_id}  _testing={true} _isWeb={false}>
+//       <div>
+//         <LogInWithAnonAadhaar />
+//         <p>{anonAadhaar?.status}</p>
+//       </div>
+//       <div >
+//         {/* Render the proof if generated and valid */}
+//         {anonAadhaar?.status === "logged-in" && (
+//           <>
+//             <p>✅ Proof is valid</p>
+//             <AnonAadhaarProof code={JSON.stringify(anonAadhaar.pcd.proof, null, 2)} />
+//             {
+//               console.log("anonAadhaar.pcd.proof", anonAadhaar.pcd.proof)
+//             }
+//           </>
+//         )
+//         }
+//       </div>
+//     </AnonAadhaarProvider>
+//     </div>
+//   );
+// }
+
+// export default Signature;
+
+import { useEffect } from "react";
+import {
+  AnonAadhaarProvider,
+  useAnonAadhaar,
+  LogInWithAnonAadhaar,
+  AnonAadhaarProof,
+} from "anon-aadhaar-react";
+
+const app_id = "557052232335049516014482965529112482384963436544";
+
+function Signature() {
+  const [anonAadhaar] = useAnonAadhaar();
+
+  useEffect(() => {
+    console.log("anonAadhaar", anonAadhaar.status);
+    if (anonAadhaar.status === "logged-in") {
+      console.log("anonAadhaar", anonAadhaar);
+      console.log("anonAadhaar.pcd.proof", anonAadhaar.pcd.proof);
+    }
+  }, [anonAadhaar]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-pink-500">
+      <div className="bg-white p-8 rounded-lg shadow-xl border-2 border-purple-700 transform transition-transform duration-300 hover:scale-105">
+        <AnonAadhaarProvider
+          _appId={app_id}
+          _testing={true}
+          _isWeb={false}
+        >
+          <div className="mb-6">
+            <LogInWithAnonAadhaar />
+          </div>
+          <p className="text-2xl font-bold text-gray-800">
+            {anonAadhaar?.status}
+          </p>
+          {anonAadhaar?.status === "logged-in" && (
+            <div className="mt-4 bg-green-200 p-4 rounded-lg">
+              <p className="text-green-700 text-lg">✅ Proof is valid</p>
+              <AnonAadhaarProof
+                code={JSON.stringify(anonAadhaar.pcd.proof, null, 2)}
+              />
+              {console.log("anonAadhaar.pcd.proof", anonAadhaar.pcd.proof)}
             </div>
-        </div>
-
-
-    );
-};
+          )}
+        </AnonAadhaarProvider>
+      </div>
+    </div>
+  );
+}
 
 export default Signature;
