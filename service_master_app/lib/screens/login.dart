@@ -110,16 +110,16 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.toNamed('/register');
+                        Get.offNamed('/register');
                       },
                       child: NeumorphicText(
                         ' Register now',
                         style: const NeumorphicStyle(
                           depth: 2, // Customize the depth as needed
-                          color: Colors.white,
+                          color: Color(0xFFFFD700),
                         ),
                         textStyle: NeumorphicTextStyle(
-                          fontSize: 16, // Customize the font size as needed
+                          fontSize: 18, // Customize the font size as needed
                           fontFamily: GoogleFonts.nunitoSans()
                               .fontFamily, // Replace with your desired font from google_fonts
                           fontWeight: FontWeight.bold,

@@ -128,9 +128,7 @@ class _HomePageState extends State<HomePage> {
           itemList.add(val[1]);
         }
       }
-
-      //print("-=-=-=-=-=-=-=\n\n\n${result.size}\n\n\n-=-=-=-=-=-=-=");
-    } catch (e) {
+     } catch (e) {
       print('Error fetching operators: $e');
     }
     return operators;
@@ -291,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                 child: Center(
                   child: Text(
                     'Show Service Masters',
-                    style: GoogleFonts.nunitoSans(color: Colors.white),
+                    style: GoogleFonts.nunitoSans(color: Colors.amber),
                   ),
                 ),
               ),
@@ -310,26 +308,46 @@ class _HomePageState extends State<HomePage> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
       builder: (BuildContext context) {
-        return Container(
-          height: 300.0,
-          decoration: const BoxDecoration(
-            color: Color(0xFF3E3E3E),
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-          ),
-          child: ListView.builder(
-            itemCount: itemList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ListTile(
-                title: Text(
-                  itemList[index],
-                  style: GoogleFonts.nunitoSans(color: Colors.white),
-                ),
-                onTap: () {
-                  _showAlertDialog();
+        return Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            Container(
+              height: 300.0,
+              decoration: const BoxDecoration(
+                color: Color(0xFF3E3E3E),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+              ),
+              child: ListView.builder(
+                itemCount: itemList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Row(
+                          children: [
+                            Text(
+                              (index+1).toString(),
+                              style: GoogleFonts.nunitoSans(color: Colors.amber, fontSize: 18),
+                            ),
+                            SizedBox(width: 30,),
+                            Text(
+                              itemList[index],
+                              style: GoogleFonts.nunitoSans(color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                        onTap: () {
+                          _showAlertDialog();
+                        },
+                      ),
+                      Container(height: 0.3, color: Colors.amber,)
+                    ],
+                  );
                 },
-              );
-            },
-          ),
+              ),
+            ),
+            Container(width: 100, height: 3, color: Colors.grey,),
+          ],
         );
       },
     );
@@ -340,13 +358,12 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Choose an option'),
+          backgroundColor: Color(0xFF3E3E3E),
+          title: const Text('Choose an option', style: TextStyle(color: Colors.white),),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                // Get.toNamed("/updation");
-                // Get.toNamed('/verify');
                 Get.to(
                   WebviewScaffold(
                     url:
@@ -358,14 +375,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ));
               },
-              child: const Text('Updation'),
+              child: const Text('Updation', style: TextStyle(color: Colors.amber),),
             ),
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
                 Get.toNamed("/enrollment_form");
               },
-              child: const Text('Enrollment'),
+              child: const Text('Enrollment', style: TextStyle(color: Colors.amber),),
             ),
           ],
         );
