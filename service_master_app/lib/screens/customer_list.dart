@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic_plus/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'package:lottie/lottie.dart';
 import 'package:service_master_app/widgets/neumorphic_Cards.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -109,7 +110,6 @@ class _ApointmentsState extends State<Apointments> {
 
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,17 +134,37 @@ class _ApointmentsState extends State<Apointments> {
         ),
         home: NeumorphicBackground(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: itemList.length - 1,
-              itemBuilder: (BuildContext context, int index) {
-                return itemList.length - 1 == 0 ? Center(
-
-                  child: Text("Nothing to see here!"),
-
-                ) :NeumorphicCards(name: 'Slot booked for ' + '10:45', index: (index+1).toString(),);
-              },
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              children: [
+                Container(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: itemList.length - 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return itemList.length - 1 == 0 ? Center(
+                        child: Text("Nothing to see here!"),
+                      ) :NeumorphicCards(name: 'Slot booked for ' + '10:45', index: (index+1).toString(),);
+                    },
+                  ),
+                ),
+                Center(child: LottieBuilder.asset('assets/loading_anim.json', width: 100, height: 100,)),
+                Center(
+                  child: NeumorphicText(
+                    'Looks like there is nothing beyond this point, check back later!',
+                    style: const NeumorphicStyle(
+                      depth: 2, // Customize the depth as needed
+                      color: Colors.amber,
+                    ),
+                    textStyle: NeumorphicTextStyle(
+                      fontSize: 20, // Customize the font size as needed
+                      fontFamily: GoogleFonts.nunitoSans()
+                          .fontFamily, // Replace with your desired font from google_fonts
+                    ),
+                  ),
+                )
+              ],
             )
           ),
         ),
