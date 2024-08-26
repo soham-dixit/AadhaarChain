@@ -31,7 +31,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Future<void> setupWeb3() async {
     client = Web3Client(rpcUrl, Client());
-    credentials = EthPrivateKey.fromHex("35a011347e6bed879f9cb3555455be92dbab7bb8074a375097a35e11e12eeeea");
+    credentials = EthPrivateKey.fromHex("");
   }
 
   late LocationData _currentLocation;
